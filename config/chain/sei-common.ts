@@ -1,14 +1,15 @@
 import { CHAIN_TYPE, NETWORK } from '../schemas/common.schema.js';
-import { getCommonChainInput, SEI_L1_CONTRACT_ADDRESSES, SEI_L2_TOKEN_ADDRESSES } from './common.chain.js';
-import { getEnv } from '../../utils/Env.js';
+import {
+  getCommonChainInput,
+  SEI_L1_CONTRACT_ADDRESSES,
+  SEI_L2_TOKEN_ADDRESSES,
+} from './common.chain.js';
 import type { PartialDeep } from 'type-fest';
 import type { SeiChainConfig } from '../schemas/sei.chain.schema.js';
 
 // This function provides common defaults specifically for Sei chains,
 // building upon the universal getCommonChainInput.
-export const getSeiCommonInput = (
-  targetNetwork: NETWORK,
-): PartialDeep<SeiChainConfig> => {
+export const getSeiCommonInput = (targetNetwork: NETWORK): PartialDeep<SeiChainConfig> => {
   const commonInput = getCommonChainInput(targetNetwork);
   return {
     ...commonInput,
@@ -24,4 +25,3 @@ export const getSeiCommonInput = (
     // Other Sei-specific common defaults can be added here
   };
 };
-

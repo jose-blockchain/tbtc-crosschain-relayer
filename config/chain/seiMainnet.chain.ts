@@ -25,8 +25,7 @@ export const getSeiMainnetChainInput = (): SeiChainInput => {
   for (const field of requiredFields) {
     if (
       typeof field === 'string' &&
-      (commonMainnetSeiInput[field] === undefined ||
-        commonMainnetSeiInput[field] === null)
+      (commonMainnetSeiInput[field] === undefined || commonMainnetSeiInput[field] === null)
     ) {
       throw new Error(
         `getSeiMainnetChainInput: Missing required field '${String(field)}' in commonMainnetSeiInput.`,
@@ -38,10 +37,7 @@ export const getSeiMainnetChainInput = (): SeiChainInput => {
     network: commonMainnetSeiInput.network,
     chainType: commonMainnetSeiInput.chainType,
     l1Rpc: commonMainnetSeiInput.l1Rpc!,
-    vaultAddress: getEnv(
-      'SEI_MAINNET_VAULT_ADDRESS',
-      commonMainnetSeiInput.vaultAddress as string,
-    ),
+    vaultAddress: getEnv('SEI_MAINNET_VAULT_ADDRESS', commonMainnetSeiInput.vaultAddress as string),
     l1BitcoinDepositorAddress: getEnv(
       'SEI_MAINNET_L1_CONTRACT_ADDRESS',
       commonMainnetSeiInput.l1BitcoinDepositorAddress as string,
@@ -56,10 +52,9 @@ export const getSeiMainnetChainInput = (): SeiChainInput => {
       commonMainnetSeiInput.l2TokenAddress as string,
     ),
     wormholeChainId: commonMainnetSeiInput.wormholeChainId,
-    l1BitcoinDepositorStartBlock: Number(getEnv(
-      'SEI_MAINNET_L1_DEPOSITOR_START_BLOCK',
-      '23570676',
-    )),
+    l1BitcoinDepositorStartBlock: Number(
+      getEnv('SEI_MAINNET_L1_DEPOSITOR_START_BLOCK', '23570676'),
+    ),
     l2Rpc: getEnv('SEI_MAINNET_L2_RPC', PUBLIC_RPCS['sei-mainnet']),
 
     chainName: 'SeiMainnet',
@@ -68,4 +63,3 @@ export const getSeiMainnetChainInput = (): SeiChainInput => {
   };
   return config;
 };
-

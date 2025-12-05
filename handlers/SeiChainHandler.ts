@@ -1,23 +1,23 @@
 /**
  * Sei Network Chain Handler
- * 
+ *
  * Architecture: NTT Hub & Spoke with Wormhole Executor
- * 
+ *
  * IMPORTANT: Sei uses the "Manager with Executor" contract on L1 (Ethereum Mainnet/Sepolia).
  * The plain NTT Manager does NOT support Sei Network.
- * 
+ *
  * L1 Contract: L1BTCDepositorNttWithExecutor (Manager with Executor)
  * - Ethereum Mainnet: 0xd2d9c936165a85f27a5a7e07afb974d022b89463 (Block 23570676)
  * - Sepolia: 0x54DD7080aE169DD923fE56d0C4f814a0a17B8f41 (Manager with Executor)
- * 
+ *
  * L2 Token (Sei EVM):
  * - Sei Mainnet (Pacific-1, Chain ID 1329): 0xF9201c9192249066Aec049ae7951ae298BBec767
- * - Sei Testnet (Atlantic-2): TBD
- * 
+ * - Sei Testnet (Atlantic-2): Not deployed. NOTE: Testnet testing is done on BaseSepolia (token: 0xc10a0886d4Fe06bD61f41ee2855a2215375B82f0), not Sei EVM testnet
+ *
  * Wormhole Chain ID: 40 (same for mainnet and testnet)
- * 
+ *
  * SDK Version: Updated for bytes32 destinationChainDepositOwner and new workflow functions
- * 
+ *
  * This handler interacts with the L1 contract on Ethereum for deposit operations.
  * All deposit logic happens on L1; L2 (Sei EVM) only receives bridged tokens via Wormhole NTT.
  */
@@ -311,9 +311,7 @@ export class SeiChainHandler extends BaseChainHandler<SeiChainConfig> {
   override async getLatestBlock(): Promise<number> {
     if (this.config.useEndpoint) return 0;
 
-    logger.warn(
-      `[${this.config.chainName}] Sei getLatestBlock NOT YET IMPLEMENTED. Returning 0.`,
-    );
+    logger.warn(`[${this.config.chainName}] Sei getLatestBlock NOT YET IMPLEMENTED. Returning 0.`);
     return 0;
   }
 
@@ -545,14 +543,22 @@ export class SeiChainHandler extends BaseChainHandler<SeiChainConfig> {
         );
         return undefined;
       }
-    } catch (error: any) {
+    } catch (_error: any) {
       logger.error(
-        `[${this.config.chainName}] ${logPrefix} Error during L1 finalizeDeposit: ${error.message}`,
+        `[${this.config.chainName}] ${logPrefix} Error during L1 finalizeDeposit: ${(_error as Error).message}`,
       );
-      logErrorContext(`${logPrefix} Error during L1 finalizeDeposit: ${error.message}`, error, {
-        chainName: this.config.chainName,
-      });
-      await logDepositError(deposit.id, `Error during L1 finalizeDeposit: ${error.message}`, error);
+      logErrorContext(
+        `${logPrefix} Error during L1 finalizeDeposit: ${(_error as Error).message}`,
+        _error,
+        {
+          chainName: this.config.chainName,
+        },
+      );
+      await logDepositError(
+        deposit.id,
+        `Error during L1 finalizeDeposit: ${(_error as Error).message}`,
+        _error,
+      );
       return undefined;
     }
   }
@@ -758,8 +764,11 @@ export class SeiChainHandler extends BaseChainHandler<SeiChainConfig> {
         await DepositStore.update(deposit);
         return undefined;
       }
-    } catch (error: any) {
-      return await logAndReturnError(`Error during L1 initializeDeposit: ${error.message}`, error);
+    } catch (_error: any) {
+      return await logAndReturnError(
+        `Error during L1 initializeDeposit: ${(_error as Error).message}`,
+        _error,
+      );
     }
   }
 
@@ -912,4 +921,3 @@ export class SeiChainHandler extends BaseChainHandler<SeiChainConfig> {
     }
   }
 }
-

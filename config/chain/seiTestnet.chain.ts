@@ -25,8 +25,7 @@ export const getSeiTestnetChainInput = (): SeiChainInput => {
   for (const field of requiredFields) {
     if (
       typeof field === 'string' &&
-      (commonTestnetSeiInput[field] === undefined ||
-        commonTestnetSeiInput[field] === null)
+      (commonTestnetSeiInput[field] === undefined || commonTestnetSeiInput[field] === null)
     ) {
       throw new Error(
         `getSeiTestnetChainInput: Missing required field '${String(field)}' in commonTestnetSeiInput.`,
@@ -38,10 +37,7 @@ export const getSeiTestnetChainInput = (): SeiChainInput => {
     network: commonTestnetSeiInput.network,
     chainType: commonTestnetSeiInput.chainType,
     l1Rpc: commonTestnetSeiInput.l1Rpc!,
-    vaultAddress: getEnv(
-      'SEI_TESTNET_VAULT_ADDRESS',
-      commonTestnetSeiInput.vaultAddress as string,
-    ),
+    vaultAddress: getEnv('SEI_TESTNET_VAULT_ADDRESS', commonTestnetSeiInput.vaultAddress as string),
     l1BitcoinDepositorAddress: getEnv(
       'SEI_TESTNET_L1_CONTRACT_ADDRESS',
       commonTestnetSeiInput.l1BitcoinDepositorAddress as string,
@@ -56,10 +52,7 @@ export const getSeiTestnetChainInput = (): SeiChainInput => {
       commonTestnetSeiInput.l2TokenAddress as string,
     ),
     wormholeChainId: commonTestnetSeiInput.wormholeChainId,
-    l1BitcoinDepositorStartBlock: Number(getEnv(
-      'SEI_TESTNET_L1_DEPOSITOR_START_BLOCK',
-      '0',
-    )),
+    l1BitcoinDepositorStartBlock: Number(getEnv('SEI_TESTNET_L1_DEPOSITOR_START_BLOCK', '0')),
     l2Rpc: getEnv('SEI_TESTNET_L2_RPC', PUBLIC_RPCS['sei-testnet']),
 
     chainName: 'SeiTestnet',
@@ -68,4 +61,3 @@ export const getSeiTestnetChainInput = (): SeiChainInput => {
   };
   return config;
 };
-

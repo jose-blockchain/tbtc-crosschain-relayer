@@ -23,16 +23,16 @@ export const SeiChainConfigSchema = CommonConfigForSei.extend({
     .string()
     .min(1, 'privateKey is required for endpoint mode to pay L1 transactions')
     .optional(),
-  
+
   // Sei L2 token address (on Sei EVM network)
   // This is the L2 TBTC token address on Sei EVM (native Chain ID: 1329 for mainnet)
   l2TokenAddress: EthereumAddressSchema,
-  
+
   // Wormhole Chain ID: 40 (used for cross-chain messaging via Wormhole NTT)
   // NOTE: This is NOT the same as Sei EVM's native Chain ID (1329 for Pacific-1 mainnet)
   // Wormhole uses its own chain ID namespace for cross-chain message routing
   wormholeChainId: z.coerce.number().int().nonnegative().default(40),
-  
+
   // Overriding these as optional to maintain compatibility with AnyChainConfig
   l2Rpc: z.string().url('l2Rpc must be a valid URL').optional(),
 }).refine((data) => data.chainType === CHAIN_TYPE.SEI, {
@@ -41,4 +41,3 @@ export const SeiChainConfigSchema = CommonConfigForSei.extend({
 });
 
 export type SeiChainConfig = z.infer<typeof SeiChainConfigSchema>;
-

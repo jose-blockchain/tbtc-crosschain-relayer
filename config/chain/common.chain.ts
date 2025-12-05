@@ -48,7 +48,7 @@ export const SEI_L1_CONTRACT_ADDRESSES = {
 // These are SEI EVM addresses (Sei EVM Chain ID: 1329 for mainnet, 1328 for testnet)
 export const SEI_L2_TOKEN_ADDRESSES = {
   [NETWORK.MAINNET]: '0xF9201c9192249066Aec049ae7951ae298BBec767', // L2 TBTC token on Sei Mainnet (Pacific-1, Chain ID 1329)
-  [NETWORK.TESTNET]: '0x0000000000000000000000000000000000000000', // L2 TBTC token on Sei Testnet (Atlantic-2, Chain ID 1328) - placeholder, update when deployed
+  [NETWORK.TESTNET]: '0x0000000000000000000000000000000000000000', // L2 TBTC token on Sei Testnet (Atlantic-2, Chain ID 1328) - placeholder. NOTE: Testnet testing is done on BaseSepolia, not Sei EVM testnet
   [NETWORK.DEVNET]: '0x0000000000000000000000000000000000000000', // Sei Development environment L2 token (placeholder)
 } as const;
 
