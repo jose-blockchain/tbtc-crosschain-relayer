@@ -7,7 +7,9 @@ import { PUBLIC_RPCS } from './common.chain.js';
 
 type SeiChainInput = z.input<typeof SeiChainConfigSchema>;
 
-// Sei Testnet (Atlantic-2) Configuration
+// Sei Testnet Configuration
+// L1: Sepolia (L1BTCDepositorNttWithExecutor)
+// L2: SeiEVM Testnet Atlantic-2 (Chain ID: 1328) - placeholders until deployment
 export const getSeiTestnetChainInput = (): SeiChainInput => {
   const commonTestnetSeiInput = getSeiCommonInput(NETWORK.TESTNET);
 

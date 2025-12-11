@@ -12,7 +12,7 @@
  *
  * L2 Token (Sei EVM):
  * - Sei Mainnet (Pacific-1, Chain ID 1329): 0xF9201c9192249066Aec049ae7951ae298BBec767
- * - Sei Testnet (Atlantic-2): Not deployed. NOTE: Testnet testing is done on BaseSepolia (token: 0xc10a0886d4Fe06bD61f41ee2855a2215375B82f0), not Sei EVM testnet
+ * - Sei Testnet (Atlantic-2, Chain ID 1328): Placeholder (to be deployed)
  *
  * Wormhole Chain ID: 40 (same for mainnet and testnet)
  *
@@ -242,8 +242,11 @@ export class SeiChainHandler extends BaseChainHandler<SeiChainConfig> {
       ? `PastEvent | TokensTransferredNttWithExecutor:`
       : `LiveEvent | TokensTransferredNttWithExecutor:`;
 
-    const depositId =
+    // Convert bytes32 depositKey (hex) to decimal depositId (string) for DepositStore lookup
+    // DepositStore uses decimal string IDs (from ethers.BigNumber.from(hash).toString())
+    const depositKeyHex =
       typeof depositKeyOrId === 'string' ? depositKeyOrId : ethers.utils.hexlify(depositKeyOrId);
+    const depositId = ethers.BigNumber.from(depositKeyHex).toString();
 
     logger.info(
       `[${this.config.chainName}] ${logPrefix} Processing | DepositId: ${depositId} | Amount: ${amount.toString()} | Recipient: ${recipient} | L1 Tx: ${transactionHash} | Sequence: ${sequence.toString()}`,
