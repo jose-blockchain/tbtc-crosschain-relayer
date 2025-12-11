@@ -242,11 +242,10 @@ export class SeiChainHandler extends BaseChainHandler<SeiChainConfig> {
       ? `PastEvent | TokensTransferredNttWithExecutor:`
       : `LiveEvent | TokensTransferredNttWithExecutor:`;
 
-    // Convert bytes32 depositKey (hex) to decimal depositId (string) for DepositStore lookup
-    // DepositStore uses decimal string IDs (from ethers.BigNumber.from(hash).toString())
-    const depositKeyHex =
+    // Convert depositKey to string for DepositStore lookup
+    // If already a string, use it directly; otherwise convert bytes to hex string
+    const depositId =
       typeof depositKeyOrId === 'string' ? depositKeyOrId : ethers.utils.hexlify(depositKeyOrId);
-    const depositId = ethers.BigNumber.from(depositKeyHex).toString();
 
     logger.info(
       `[${this.config.chainName}] ${logPrefix} Processing | DepositId: ${depositId} | Amount: ${amount.toString()} | Recipient: ${recipient} | L1 Tx: ${transactionHash} | Sequence: ${sequence.toString()}`,
