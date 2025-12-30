@@ -12,7 +12,7 @@
  *
  * L2 Token (Sei EVM):
  * - Sei Mainnet (Pacific-1, Chain ID 1329): 0xF9201c9192249066Aec049ae7951ae298BBec767
- * - Sei Testnet (Atlantic-2, Chain ID 1328): Placeholder (to be deployed)
+ * - Sei Testnet (Atlantic-2, Chain ID 1328): 0x93D92C8f3F8F00E739E7d8A7AFB2d5cb32cE652C
  *
  * Wormhole Chain ID: 40 (same for mainnet and testnet)
  *
